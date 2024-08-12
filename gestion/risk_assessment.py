@@ -9,7 +9,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projet_rh.settings')
 django.setup()
 
-from gestion.models import Employee, SatisfactionSurvey, Performance
+from gestion.models import Employee, SatisfactionSurvey, Performance, ActionPlan
+
 def assess_risk():
     # Récupérer les données des employés
     employees = pd.DataFrame(list(Employee.objects.all().values()))
@@ -26,8 +27,21 @@ def assess_risk():
     # Sélectionner les employés à risque élevé
     high_risk_employees = df[df['risk_level'] == 'High']
 
+    # Développer des plans d'action pour les employés à risque élevé
+    action_plans = []
+    for _, row in high_risk_employees.iterrows():
+        action_plan = {
+            'employee_id': row['employee_id'],
+            'plan': 'Plan de développement personnel et entretien de satisfaction à programmer.',
+            'details': f'Employé ID {row["employee_id"]}: Prévoir un entretien pour discuter de la satisfaction au travail et des opportunités de développement.'
+        }
+        action_plans.append(action_plan)
+
+    # Sauvegarder les plans d'action dans la base de données
+    for plan in action_plans:
+        ActionPlan.objects.create(employee_id=plan['employee_id'], plan=plan['plan'], details=plan['details'])
+
     return high_risk_employees
- 
 
 if __name__ == "__main__":
     assess_risk()

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Plans</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Incluez votre CSS ici -->
+</head>
+<body>
+    <h1>Action Plans</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Affichage des données des plans d'action -->
+            {% for plan in plans %}
+            <tr>
+                <td>{{ plan.employee }}</td>
+                <td>{{ plan.plan }}</td>
+                <td>{{ plan.status }}</td>
+                <td>
+                    <!-- Actions comme éditer ou supprimer -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

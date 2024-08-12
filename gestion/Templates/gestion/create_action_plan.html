@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Action Plan</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Incluez votre CSS ici -->
+</head>
+<body>
+    <h1>Create New Action Plan</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create</button>
+    </form>
+    <a href="{% url 'action_plans' %}">Back to Action Plans</a>
+</body>
+</html>

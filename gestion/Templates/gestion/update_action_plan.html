@@ -1,0 +1,20 @@
+<!-- gestion/templates/update_action_plan.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Action Plan</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Incluez votre CSS ici -->
+</head>
+<body>
+    <h1>Update Action Plan</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'action_plans' %}">Back to Action Plans</a>
+</body>
+</html>

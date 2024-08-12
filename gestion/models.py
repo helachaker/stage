@@ -166,3 +166,12 @@ class Behavior(models.Model):
     def __str__(self):
         return f"{self.employee} - {self.date}"
     
+
+
+class ActionPlan(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    plan = models.TextField()
+    details = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('In Progress', 'In Progress'), ('Completed', 'Completed')], default='Pending')
+    feedback = models.TextField(blank=True, null=True)

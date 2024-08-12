@@ -15,5 +15,7 @@ urlpatterns = [
     path('predict/', views.predict_employee_retention, name='predict_employee_retention'),
     path('predict/result/', views.predict_employee_retention, name='predict_result'),  # Route pour les résultats
     path('dashboard/', views.retention_dashboard, name='retention_dashboard'),
-
+    path('action-plans/', views.action_plans, name='action_plans'),
+    path('action-plan/<int:action_plan_id>/edit/', views.update_action_plan, name='update_action_plan'),
+    path('action-plan/create/', views.create_action_plan, name='create_action_plan'),
 ]

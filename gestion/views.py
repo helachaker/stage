@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from .forms import EmployeeForm, PerformanceForm, SatisfactionSurveyForm, FeedbackForm, BehaviorForm
-from .models import Employee, Performance, SatisfactionSurvey, Feedback
+from .models import Employee, Performance, SatisfactionSurvey, Feedback, ActionPlan
+
 
 
 def home(request):
@@ -173,3 +174,33 @@ def retention_dashboard(request):
     }
     
     return render(request, 'gestion/retention_dashboard.html', context)
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import ActionPlan
+from .forms import ActionPlanForm
+
+def action_plans(request):
+    plans = ActionPlan.objects.all()
+    return render(request, 'gestion/action_plans.html', {'plans': plans})
+
+def create_action_plan(request):
+    if request.method == 'POST':
+        form = ActionPlanForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('action_plans')
+    else:
+        form = ActionPlanForm()
+    return render(request, 'gestion/create_action_plan.html', {'form': form})
+
+def update_action_plan(request, action_plan_id):
+    action_plan = get_object_or_404(ActionPlan, id=action_plan_id)
+    if request.method == 'POST':
+        form = ActionPlanForm(request.POST, instance=action_plan)
+        if form.is_valid():
+            form.save()
+            return redirect('action_plans')
+    else:
+        form = ActionPlanForm(instance=action_plan)
+    return render(request, 'gestion/update_action_plan.html', {'form': form})

@@ -57,3 +57,13 @@ class PredictionForm(forms.Form):
     overtime_hours = forms.IntegerField()
     satisfaction_score = forms.IntegerField()
     feedback_text = forms.CharField(widget=forms.Textarea)
+
+# gestion/forms.py
+
+from django import forms
+from .models import ActionPlan
+
+class ActionPlanForm(forms.ModelForm):
+    class Meta:
+        model = ActionPlan
+        fields = ['employee', 'plan', 'details', 'status', 'feedback']  # Utilisez les champs définis dans le modèle
