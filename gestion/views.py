@@ -150,3 +150,14 @@ def predict_employee_retention(request):
 
     return render(request, 'gestion/predict_form.html', {'form': form})
     
+# C:\Users\chake\mon_projet_django\projet_rh\gestion\views.py
+
+from django.shortcuts import render
+from .dashboard import generate_retention_dashboard
+
+def retention_dashboard(request):
+    graph_satisfaction, graph_turnover = generate_retention_dashboard()
+    return render(request, 'gestion/retention_dashboard.html', {
+        'graph_satisfaction': graph_satisfaction,
+        'graph_turnover': graph_turnover,
+    })
