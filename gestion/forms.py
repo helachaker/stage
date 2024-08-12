@@ -29,8 +29,31 @@ class BehaviorForm(forms.ModelForm):
         model = Behavior
         fields = ['employee', 'date', 'absenteeism_days', 'overtime_hours', 'training_engagement', 'notes']
 
-class PredictForm(forms.Form):
-    employee_id = forms.IntegerField(label='Employee ID')
-    age = forms.FloatField(label='Age')
-    years_at_company = forms.FloatField(label='Years at Company')
-    department = forms.ChoiceField(choices=[('HR', 'HR'), ('Finance', 'Finance'), ('Engineering', 'Engineering'), ('Marketing', 'Marketing'), ('Sales', 'Sales')], label='Department')
+from django import forms
+
+class PredictionForm(forms.Form):
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    ]
+
+    DEPARTMENT_CHOICES = [
+        ('HR', 'HR'),
+        ('Finance', 'Finance'),
+        ('IT', 'IT'),
+        ('Sales', 'Sales'),
+        # Ajoutez d'autres départements ici
+    ]
+
+    gender = forms.ChoiceField(choices=GENDER_CHOICES)
+    position = forms.CharField(max_length=100)
+    department = forms.ChoiceField(choices=DEPARTMENT_CHOICES)
+    age = forms.IntegerField()
+    salary = forms.DecimalField(max_digits=10, decimal_places=2)
+    performance_rating = forms.DecimalField(max_digits=3, decimal_places=1)
+    salary_increase = forms.DecimalField(max_digits=10, decimal_places=2)
+    absenteeism_days = forms.IntegerField()
+    overtime_hours = forms.IntegerField()
+    satisfaction_score = forms.IntegerField()
+    feedback_text = forms.CharField(widget=forms.Textarea)

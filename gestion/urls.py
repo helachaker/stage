@@ -13,4 +13,7 @@ urlpatterns = [
     path('success/', views.success_view, name='success'),
     path('add_behavior/', views.add_behavior, name='add_behavior'),
     path('predict/', views.predict_employee_retention, name='predict_employee_retention'),
+        path('predict/result/', views.predict_employee_retention, name='predict_result'),  # Route pour les résultats
+
+
 ]

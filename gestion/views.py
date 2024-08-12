@@ -80,47 +80,62 @@ def add_behavior(request):
         form = BehaviorForm()
     return render(request, 'gestion/add_behavior.html', {'form': form})
 
-from django.shortcuts import render
-import pandas as pd
 import joblib
-from django.conf import settings
+import logging
+from django.shortcuts import render
+from .forms import PredictionForm
+from .models import Employee
+import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 def predict_employee_retention(request):
-    # Charger le modèle
-    model_path = settings.BASE_DIR / 'projet_rh/model.pkl'
-    model = joblib.load(model_path)
-    
     if request.method == 'POST':
-        # Extraire les données de l'employé depuis le formulaire
-        data = {
-            'age': int(request.POST['age']),
-            'salary': float(request.POST['salary']),
-            'performance_rating': float(request.POST['performance_rating']),
-            'absenteeism_days': int(request.POST['absenteeism_days']),
-            'overtime_hours': int(request.POST['overtime_hours']),
-            'satisfaction_score': float(request.POST['satisfaction_score']),
+        form = PredictionForm(request.POST)
+        if form.is_valid():
+            logger.debug("Form is valid")
             
-        
-        }
-        
-        # Convertir les données en DataFrame
-        df = pd.DataFrame([data])
-        
-        # Faire des prédictions
-        prediction = model.predict(df)[0]
-        probability = model.predict_proba(df)[0][1]
-        
-        # Traduire la prédiction en texte
-        if prediction == 1:
-            result = "L'employé est susceptible de quitter l'entreprise."
-        else:
-            result = "L'employé n'est pas susceptible de quitter l'entreprise."
-        
-        context = {
-            'result': result,
-            'probability': probability * 100
-        }
-        
-        return render(request, 'gestion/predict_result.html', context)
-    
-    return render(request, 'gestion/predict_form.html')
+            # Extraire les données du formulaire
+            data = {
+                'gender': form.cleaned_data['gender'],
+                'position': form.cleaned_data['position'],
+                'department': form.cleaned_data['department'],
+                'age': form.cleaned_data['age'],
+                'salary': form.cleaned_data['salary'],
+                'performance_rating': form.cleaned_data['performance_rating'],
+                'salary_increase': form.cleaned_data['salary_increase'],
+                'absenteeism_days': form.cleaned_data['absenteeism_days'],
+                'overtime_hours': form.cleaned_data['overtime_hours'],
+                'satisfaction_score': form.cleaned_data['satisfaction_score'],
+                'feedback_text': form.cleaned_data['feedback_text']
+            }
+
+            logger.debug(f"Data extracted: {data}")
+
+            # Convertir en DataFrame pour être compatible avec le modèle
+            df = pd.DataFrame([data])
+
+            # Charger le modèle
+            try:
+                model = joblib.load('projet_rh/model.pkl')
+                logger.debug("Model loaded successfully")
+            except Exception as e:
+                logger.error(f"Error loading model: {e}")
+                return render(request, 'gestion/predict_form.html', {'form': form, 'error': 'Model loading error'})
+
+            # Faire la prédiction
+            try:
+                prediction = model.predict(df)
+                probability = model.predict_proba(df)[0][1]  # Probabilité que l'employé quitte l'entreprise
+                logger.debug(f"Prediction made: {prediction}, Probability: {probability}")
+            except Exception as e:
+                logger.error(f"Error during prediction: {e}")
+                return render(request, 'gestion/predict_form.html', {'form': form, 'error': 'Prediction error'})
+
+            # Renvoyer la prédiction au template
+            return render(request, 'gestion/predict_result.html', {'form': form, 'prediction': prediction[0], 'probability': probability})
+    else:
+        form = PredictionForm()
+        logger.debug("Form initialized")
+
+    return render(request, 'gestion/predict_form.html', {'form': form})
