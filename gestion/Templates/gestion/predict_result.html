@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Résultat de Prédiction</title>
+</head>
+<body>
+    <h2>Résultat de Prédiction</h2>
+    <p>{{ result }}</p>
+    <p>Probabilité: {{ probability }}%</p>
+    <a href="{% url 'predict_employee_retention' %}">Faire une autre prédiction</a>
+</body>
+</html>

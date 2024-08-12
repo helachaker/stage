@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: hsl(189, 63%, 45%);
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .container h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .container p {
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        .container a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: hsl(189, 63%, 45%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .container a:hover {
+            background-color: hsl(189, 63%, 45%);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Home Page!</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'add_employee' %}">Add Employee</a></li>
+                <li><a href="{% url 'employee_list' %}">View Employees</a></li>
+                <li><a href="{% url 'add_performance' %}">Add Performance</a></li>
+                <li><a href="{% url 'performance_list' %}">View Performances</a></li>
+                <li><a href="{% url 'add_behavior' %}">Add Behavior</a></li>
+                <li><a href="{% url 'add_satisfaction_survey' %}">Add Satisfaction</a></li>
+                <li><a href="{% url 'view_surveys' %}">View Survey</a></li>
+                <li><a href="{% url 'add_feedback' %}">Add Feedback</a></li>
+                <li><a href="{% url 'view_feedbacks' %}">View Feedbacks</a></li>
+                <li><a href="{% url 'view_feedbacks' %}">View Feedbacks</a></li>
+            </ul>
+        
+
+
+    </header>
+    <div class="container">
+        <h1>HR Management System</h1>
+        <p>Welcome to the HR Management System. Use the links below to manage employees, performance, satisfaction surveys, and feedback.</p>
+        <p><a href="{% url 'add_employee' %}">Add Employee</a></p>
+        <p><a href="{% url 'employee_list' %}">View Employees</a></p>
+        <p><a href="{% url 'add_performance' %}">Add Performance</a></p>
+        <p><a href="{% url 'performance_list' %}">View Performances</a></p>
+        <p></p><a href="{% url 'add_behavior' %}">Add Behavior</a></p>
+        <p><a href="{% url 'add_satisfaction_survey' %}">Add Satisfaction</a></p>
+        <p><a href="{% url 'view_surveys' %}">View Surveys</a></p>
+        <p><a href="{% url 'add_feedback' %}">Add Feedback</a></p>
+        <p><a href="{% url 'view_feedbacks' %}">View Feedbacks</a></p>
+       
+
+    
+
+    </div>
+</body>
+</html>

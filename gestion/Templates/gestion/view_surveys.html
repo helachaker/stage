@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Surveys</title>
+    <!-- Ajouter le lien vers le fichier CSS de Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ajouter un fichier CSS personnalisé pour d'autres styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .survey-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .survey-header {
+            font-weight: bold;
+        }
+        .survey-date {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Surveys</h1>
+        <ul class="list-group survey-list">
+            {% for survey in surveys %}
+                <li class="list-group-item survey-item">
+                    <div class="survey-header">{{ survey.employee }}</div>
+                    <div class="survey-date">{{ survey.survey_date }}</div>
+                    <div class="survey-score">Score: {{ survey.satisfaction_score }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Ajouter les scripts JavaScript de Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
