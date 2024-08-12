@@ -86,6 +86,7 @@ from django.shortcuts import render
 from .forms import PredictionForm
 from .models import Employee
 import pandas as pd
+from .risk_classification import classify_risk  # Importation de la fonction de classification des risques
 
 logger = logging.getLogger(__name__)
 
@@ -132,10 +133,20 @@ def predict_employee_retention(request):
                 logger.error(f"Error during prediction: {e}")
                 return render(request, 'gestion/predict_form.html', {'form': form, 'error': 'Prediction error'})
 
-            # Renvoyer la prédiction au template
-            return render(request, 'gestion/predict_result.html', {'form': form, 'prediction': prediction[0], 'probability': probability})
+            # Classifier le risque
+            risk_level = classify_risk(probability)
+            logger.debug(f"Risk level classified: {risk_level}")
+
+            # Renvoyer la prédiction et la classification au template
+            return render(request, 'gestion/predict_result.html', {
+                'form': form,
+                'prediction': prediction[0],
+                'probability': probability,
+                'risk_level': risk_level
+            })
     else:
         form = PredictionForm()
         logger.debug("Form initialized")
 
     return render(request, 'gestion/predict_form.html', {'form': form})
+    

@@ -99,6 +99,8 @@ def train_model(file_path):
     
     return best_model
 
+
 # Exécution du code
 if __name__ == "__main__":
     model = train_model('extended_data.csv')
+
