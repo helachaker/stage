@@ -6,9 +6,22 @@
 </head>
 <body>
     <h1>Tableau de Bord de Rétention</h1>
+    
     <div id="satisfaction-graph">
         {{ graph_satisfaction|safe }}
     </div>
-    <!-- Ajoutez d'autres graphiques ici -->
+    
+    <div id="turnover-graph">
+        {{ graph_turnover|safe }}
+    </div>
+    
+    <h2>Recommandations Personnalisées</h2>
+    <ul>
+        {% for recommendation in recommendations %}
+            <li>
+                Employé ID: {{ recommendation.employee_id }} - {{ recommendation.recommendation }}
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

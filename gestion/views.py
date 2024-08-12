@@ -150,14 +150,26 @@ def predict_employee_retention(request):
 
     return render(request, 'gestion/predict_form.html', {'form': form})
     
-# C:\Users\chake\mon_projet_django\projet_rh\gestion\views.py
 
-from django.shortcuts import render
+
+
 from .dashboard import generate_retention_dashboard
+from django.shortcuts import render
+from .risk_assessment import assess_risk
+from .recommendations import generate_recommendations
 
 def retention_dashboard(request):
+    # Générer le dashboard
     graph_satisfaction, graph_turnover = generate_retention_dashboard()
-    return render(request, 'gestion/retention_dashboard.html', {
+
+    # Évaluer les risques et générer des recommandations
+    high_risk_employees = assess_risk()
+    recommendations = generate_recommendations(high_risk_employees)
+
+    context = {
         'graph_satisfaction': graph_satisfaction,
         'graph_turnover': graph_turnover,
-    })
+        'recommendations': recommendations
+    }
+    
+    return render(request, 'gestion/retention_dashboard.html', context)
