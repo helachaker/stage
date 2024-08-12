@@ -204,3 +204,28 @@ def update_action_plan(request, action_plan_id):
     else:
         form = ActionPlanForm(instance=action_plan)
     return render(request, 'gestion/update_action_plan.html', {'form': form})
+
+
+from .forms import InterventionForm
+from .models import Intervention
+
+def add_intervention(request):
+    if request.method == 'POST':
+        form = InterventionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('intervention_list')
+    else:
+        form = InterventionForm()
+    return render(request, 'gestion/add_intervention.html', {'form': form})
+
+def intervention_list(request):
+    interventions = Intervention.objects.all()
+    return render(request, 'gestion/intervention_list.html', {'interventions': interventions})
+
+from django.db.models import Count
+
+
+def intervention_impact(request):
+    impact_summary = Intervention.objects.values('outcome').annotate(count=Count('outcome'))
+    return render(request, 'gestion/intervention_impact.html', {'impact_summary': impact_summary})

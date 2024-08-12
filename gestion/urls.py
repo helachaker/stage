@@ -18,4 +18,7 @@ urlpatterns = [
     path('action-plans/', views.action_plans, name='action_plans'),
     path('action-plan/<int:action_plan_id>/edit/', views.update_action_plan, name='update_action_plan'),
     path('action-plan/create/', views.create_action_plan, name='create_action_plan'),
+    path('add_intervention/', views.add_intervention, name='add_intervention'),
+    path('intervention_list/', views.intervention_list, name='intervention_list'),
+    path('intervention_impact/', views.intervention_impact, name='intervention_impact'),
 ]

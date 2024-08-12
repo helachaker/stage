@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Intervention Impact Summary</h2>
+  <a href="{% url 'intervention_list' %}">Back to Intervention List</a>
+  <a href="{% url 'add_intervention' %}">Add New Intervention</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Outcome</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in impact_summary %}
+      <tr>
+        <td>{{ item.outcome }}</td>
+        <td>{{ item.count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

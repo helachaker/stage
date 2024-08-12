@@ -175,3 +175,16 @@ class ActionPlan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('In Progress', 'In Progress'), ('Completed', 'Completed')], default='Pending')
     feedback = models.TextField(blank=True, null=True)
+
+
+
+class Intervention(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    plan = models.ForeignKey(ActionPlan, on_delete=models.CASCADE)  # Assurez-vous que ActionPlan est défini dans votre modèle
+    date = models.DateField()
+    description = models.TextField()
+    outcome = models.CharField(max_length=100)  # Exemple : 'Successful', 'Partially Successful', 'Failed'
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Intervention for {self.employee} on {self.date}"

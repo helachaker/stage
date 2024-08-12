@@ -1,5 +1,5 @@
 from django import forms
-from .models import Employee, Performance, SatisfactionSurvey, Feedback, Behavior
+from .models import Employee, Performance, SatisfactionSurvey, Feedback, Behavior,  Intervention
 
 
 class EmployeeForm(forms.ModelForm):
@@ -67,3 +67,10 @@ class ActionPlanForm(forms.ModelForm):
     class Meta:
         model = ActionPlan
         fields = ['employee', 'plan', 'details', 'status', 'feedback']  # Utilisez les champs définis dans le modèle
+
+
+
+class InterventionForm(forms.ModelForm):
+    class Meta:
+        model = Intervention
+        fields = ['employee', 'plan', 'date', 'description', 'outcome', 'notes']

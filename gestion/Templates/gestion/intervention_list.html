@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Intervention List</h2>
+  <a href="{% url 'add_intervention' %}">Add New Intervention</a>
+  <a href="{% url 'intervention_impact' %}">View Intervention Impact</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Plan</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Outcome</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for intervention in interventions %}
+      <tr>
+        <td>{{ intervention.employee }}</td>
+        <td>{{ intervention.plan }}</td>
+        <td>{{ intervention.date }}</td>
+        <td>{{ intervention.description }}</td>
+        <td>{{ intervention.outcome }}</td>
+        <td>{{ intervention.notes }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
