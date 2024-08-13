@@ -29,6 +29,7 @@ class Employee(models.Model):
     employment_status = models.CharField(max_length=20, choices=employment_status_choices)
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     risk_level = models.CharField(max_length=50, blank=True, null=True)
+    manager_email = models.EmailField(max_length=254, null=True, blank=True)
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
